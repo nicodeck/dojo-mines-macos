@@ -62,6 +62,7 @@ cle_existante=""
 [ -f "$REGLAGES" ] && cle_existante=$(bun -e "console.log((await Bun.file('$REGLAGES').json()).env?.ANTHROPIC_AUTH_TOKEN ?? '')")
 if [ -n "$cle_existante" ] && verifier_cle "$cle_existante"; then
   vert "déjà configurée"
+  cle="$cle_existante"
 else
   cle=""
   if [ -f .env ]; then
@@ -104,5 +105,12 @@ vert "prêt"
 
 printf '\n\033[1;32mTout est prêt !\033[0m Pour relancer Claude Code plus tard : tape « claude » dans ce dossier.\n\n'
 if [ -t 0 ] && [ -t 1 ]; then
+  # Au premier lancement, Claude Code ignore l'env de .claude/ tant que l'assistant de
+  # démarrage et la question de confiance ne sont pas passés : sans ces variables, il demande
+  # de se connecter. Elles ne valent que pour ce lancement ; ensuite, .claude/ prend le relais.
+  export ANTHROPIC_BASE_URL=https://openrouter.ai/api
+  export ANTHROPIC_AUTH_TOKEN="$cle"
+  # Plein écran dès ce premier lancement, comme le réglage tui de .claude/settings.json ensuite.
+  export CLAUDE_CODE_NO_FLICKER=1
   exec claude
 fi
