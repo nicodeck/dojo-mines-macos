@@ -10,5 +10,7 @@
 Le script installe ce qu'il faut et lance Claude Code. Pour le relancer plus tard : `claude`
 dans ce dossier.
 
+Dans Claude Code, commence par taper `/grill-me` suivi de ton idée de jeu.
+
 Tu préfères mettre ta clé toi-même ? Crée un fichier `.env` dans ce dossier avec la ligne
 `OPENROUTER_API_KEY=ta-clé`, puis lance `bash installer.sh`.

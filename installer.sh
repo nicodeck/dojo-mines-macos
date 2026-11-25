@@ -104,6 +104,7 @@ fi
 vert "prêt"
 
 printf '\n\033[1;32mTout est prêt !\033[0m Pour relancer Claude Code plus tard : tape « claude » dans ce dossier.\n\n'
+printf "Pour commencer, tape \033[1m/grill-me\033[0m suivi de ton idée de jeu.\n\n"
 if [ -t 0 ] && [ -t 1 ]; then
   # Au premier lancement, Claude Code ignore l'env de .claude/ tant que l'assistant de
   # démarrage et la question de confiance ne sont pas passés : sans ces variables, il demande
